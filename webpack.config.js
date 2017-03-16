@@ -1,5 +1,5 @@
 const webpack = require('webpack');
-//var ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const loaders = [
     {
         "test": /\.js?$/,
@@ -18,40 +18,58 @@ const loaders = [
         "loader": "vue"
     },
     {
-        "test": /\.less$/,
-        "loader": "style!css!less"
+        test: /vux.src.*?js$/,
+        loader: 'babel'
     },
     {
         "test": /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/,
         "loader": 'url-loader'
     },
     {
-        "test":/\.css$/,
+        "test": /\.css$/,
         "loader": "style!css"
     },
-    { test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/, loader: 'url-loader'},
+    {
+        "test": /\.less$/,
+        "loader": ExtractTextPlugin.extract("style-loader", "css-loader!less-loader")
+    },
+    {test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/, loader: 'url-loader'},
 ];
 module.exports = {
     entry: {
         main: './main.js'
     },
     output: {
-        path: './',
+        path: './dist/',
         filename: 'build.js'
     },
+    vue: {
+        loaders: {
+            css: ExtractTextPlugin.extract("css"),
+            // you can also include <style lang="less"> or other langauges
+            less: ExtractTextPlugin.extract("css!less")
+        }
+    },
     resolve: {
-        alias: {}
+        alias: {
+            vue: 'vue/dist/vue.js'
+        }
     },
     plugins: [
-        // new webpack.optimize.UglifyJsPlugin({
-        //     minimize: true,
-        //     compress:{
-        //         warnings: false,
-        //         drop_debugger: true,
-        //         drop_console: true
-        //     }
-        // }),
-       // new ExtractTextPlugin("styles.css")
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: '"production"'
+            }
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+            // minimize: true,
+            compress: {
+                warnings: false,
+                // drop_debugger: true,
+                // drop_console: true
+            }
+        }),
+        new ExtractTextPlugin("styles.css")
     ],
     module: {
         loaders: loaders

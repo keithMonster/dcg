@@ -5,9 +5,11 @@ import Vue from 'vue';
 import app from './src'
 new Vue({
     el: '#app',
-    created(){},
+    created(){
+    },
     data(){
         return {}
     },
-    components: {app}
+    components: {app},
+    render: h => h('app')
 });
