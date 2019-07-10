@@ -1,1 +1,80 @@
-//:#fff;@font-family "Hiragino Sans GB","Microsoft YaHei","PingFang SC","微软雅黑",:"Helvetica Neue",Arial,Helvetica,sans-serif;@code-family :Consolas,Courier,Menlo,monospace;@title-color :#464c5b;@text-color :#657180;@font-size-base :14px;@font-size-small :12px;@line-height-base :1.5;@line-height-computed :floor((@font-size-base * @line-height-base));@border-radius-base :6px;@border-radius-small :4px;*{-webkit-tap-highlight-color:rgba(0,0,0,0)}*,:after,:before{box-sizing:border-box}body{font-family:@font-family;font-size:@font-size-small;line-height:@line-height-base;color:@text-color;background-color:@body-background;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}article,aside,blockquote,body,button,dd,details,div,dl,dt,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,hr,input,legend,li,menu,nav,ol,p,section,td,textarea,th,ul{margin:0;padding:0}button,input,select,textarea{font-family:inherit;font-size:inherit;line-height:inherit}ol,ul{list-style:none}input::-ms-clear,input::-ms-reveal{display:none}code,kbd,pre,samp{font-family:@code-family}p[_v-b02af710]{font-size:12px}
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+body {
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "\5FAE\8F6F\96C5\9ED1", Arial, sans-serif;
+  background-color: #fff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+form,
+fieldset,
+legend,
+input,
+textarea,
+p,
+blockquote,
+th,
+td,
+hr,
+button,
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  margin: 0;
+  padding: 0;
+}
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+ul,
+ol {
+  list-style: none;
+}
+input::-ms-clear,
+input::-ms-reveal {
+  display: none;
+}
+code,
+kbd,
+pre,
+samp {
+  font-family: Consolas, Menlo, Courier, monospace;
+}
+.flex {
+  display: flex;
+}
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzdHlsZXMuY3NzIiwic291cmNlUm9vdCI6IiJ9*/

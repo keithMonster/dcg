@@ -1,78 +1,80 @@
 const webpack = require('webpack');
+const path = require('path');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const loaders = [
-    {
-        "test": /\.js?$/,
-        "exclude": /node_modules/,
-        "loader": "babel",
-        "query": {
-            "presets": [
-                "es2015",
-                "stage-0"
-            ],
-            "plugins": []
+const rules = [
+        {
+            test: /\.css$/,
+            use: ExtractTextPlugin.extract({
+                use: 'css-loader'
+            })
+        },
+        {
+            test: /\.less/,
+            use: ExtractTextPlugin.extract({
+                use: ['css-loader', 'less-loader']
+            })
+        },
+        {
+            test: /\.js$/,
+            use: 'babel-loader',
+            exclude: /node_modules/
+        },
+        {
+            test: /\.vue$/,
+            use: {
+                loader: 'vue-loader',
+                options: {
+                    loaders: {
+                        css: ExtractTextPlugin.extract({
+                            use: 'css-loader'
+                        }),
+                        stylus: ExtractTextPlugin.extract({
+                            use: ['css-loader', 'stylus-loader']
+                        })
+                    }
+                }
+            }
+        },
+        {
+            test: /\.(png|svg|jpg|gif)$/,
+            use:
+                [
+                    'file-loader'
+                ]
         }
-    },
-    {
-        "test": /\.vue?$/,
-        "loader": "vue"
-    },
-    {
-        test: /vux.src.*?js$/,
-        loader: 'babel'
-    },
-    {
-        "test": /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/,
-        "loader": 'url-loader'
-    },
-    {
-        "test": /\.css$/,
-        "loader": "style!css"
-    },
-    {
-        "test": /\.less$/,
-        "loader": ExtractTextPlugin.extract("style-loader", "css-loader!less-loader")
-    },
-    {test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/, loader: 'url-loader'},
-];
+        ,
+        {
+            test: /\.(woff|woff2|eot|ttf|otf)$/,
+            use:
+                [
+                    'file-loader'
+                ]
+        }
+    ]
+;
 module.exports = {
     entry: {
         main: './main.js'
     },
     output: {
-        path: './dist/',
-        filename: 'build.js'
+        path: path.resolve(__dirname, 'dist'),
+        filename: '[name].build.js'
     },
-    vue: {
-        loaders: {
-            css: ExtractTextPlugin.extract("css"),
-            // you can also include <style lang="less"> or other langauges
-            less: ExtractTextPlugin.extract("css!less")
-        }
-    },
-    resolve: {
-        alias: {
-            vue: 'vue/dist/vue.js'
-        }
-    },
+    module: {rules},
+    devtool: 'inline-source-map',
     plugins: [
-        new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV: '"production"'
-            }
-        }),
-        new webpack.optimize.UglifyJsPlugin({
-            // minimize: true,
-            compress: {
-                warnings: false,
-                // drop_debugger: true,
-                // drop_console: true
-            }
-        }),
-        new ExtractTextPlugin("styles.css")
+        //new CleanWebpackPlugin(['dist']),
+        //new webpack.optimize.UglifyJsPlugin({
+        //    compress: {
+        //        warnings: false
+        //    },
+        //    sourceMap: true
+        //}),
+        new ExtractTextPlugin({
+            filename: 'styles.css'
+        })
     ],
-    module: {
-        loaders: loaders
-    },
     watch: true
 };

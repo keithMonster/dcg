@@ -1,0 +1,5 @@
+{
+  "presets": ["es2015", "stage-0"],//表示预设，表示babelrc转换预先需要安装的插件
+  "plugins": ["transform-runtime"],//把es6的方法做转换
+  "comments": false  //false表示转换后代码不生成注释
+}
