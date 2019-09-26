@@ -4,6 +4,7 @@ import {
     OBJLoader
 } from 'three-obj-mtl-loader'
 import GLTFLoader from 'three-gltf-loader';
+import bus from '@/bus.js'
 const Colors = {
     red: 0xf25346,
     white: 0xd8d0d1,
@@ -95,8 +96,8 @@ let mouseRotate = {
 
 function createPlane() {
 
-    let mtlLoader = new MTLLoader();
-    let objLoader = new OBJLoader();
+    // let mtlLoader = new MTLLoader();
+    // let objLoader = new OBJLoader();
     // mtlLoader.load('https://www.wjceo.com/lib/assets/models/butterfly.mtl', (materials) => {
     // mtlLoader.load('src/assets/three_obj/未标题_2.mtl', (materials) => {
     //     materials.preload()
@@ -119,6 +120,7 @@ function createPlane() {
         },
         (xhr) => {
             // called while loading is progressing
+            bus.$emit('object_load',xhr.loaded / xhr.total)
             // console.log(`${( xhr.loaded / xhr.total * 100 )}% loaded`);
         },
         (error) => {

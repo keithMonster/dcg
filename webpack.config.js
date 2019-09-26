@@ -63,6 +63,11 @@ module.exports = {
         filename: '[name].build.js'
     },
     module: {rules},
+    resolve: {
+        alias: {
+          '@': path.join(__dirname, 'src'),
+        },
+    },
     devtool: 'inline-source-map',
     plugins: [
         //new CleanWebpackPlugin(['dist']),
