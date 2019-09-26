@@ -116,6 +116,9 @@ function createPlane() {
         (gltf) => {
             // called when the resource is loaded
             mouse = gltf.scene
+            log(mouse)
+            mouse.position.z = -300
+            handleLoadOver()
             scene.add(gltf.scene);
         },
         (xhr) => {
@@ -130,33 +133,7 @@ function createPlane() {
     );
 }
 
-function updatePlane() {
-
-    // 让我们在x轴上-100至100之间和y轴25至175之间移动飞机
-    // 根据鼠标的位置在-1与1之间的范围，我们使用的 normalize 函数实现（如下）
-    var targetX = normalize(mousePos.x, -1, 1, -150, 150);
-    var targetY = normalize(mousePos.y, -1, 1, 25, 195);
-    // 更新飞机的位置
-    airplane.mesh.position.y = targetY;
-    airplane.mesh.position.x = targetX;
-    if (oldmousePos.x !== mousePos.x || oldmousePos.y !== mousePos.y) {
-        airplane.propeller.rotation.x += 0.3;
-    }
-    oldmousePos.x = mousePos.x
-    oldmousePos.y = mousePos.y
-}
-
-function normalize(v, vmin, vmax, tmin, tmax) {
-    var nv = Math.max(Math.min(v, vmax), vmin);
-    var dv = vmax - vmin;
-    var pc = (nv - vmin) / dv;
-    var dt = tmax - tmin;
-    var tv = tmin + (pc * dt);
-    return tv;
-}
-
 function loop() {
-    // 使螺旋桨旋转并转动大海和云
     // airplane.propeller.rotation.x += 0.3;
     if (mouse && mouse.position) {
         // mouse.position.z += 0.3;
@@ -176,8 +153,6 @@ function loop() {
 let position = {
     move:{x:0,y:0}
 }
-// let positionPrev = {}
-// let displacement = {}
 function itemTouchStart(e) {
     // position.start = getClientPosition(e);
     position.move = getClientPosition(e);
@@ -206,7 +181,12 @@ function itemTouchMove(e, index) {
 function itemTouchEnd(e, index) {
     
 }
-
+function handleLoadOver(){
+    mouse.position.z += 10;
+    if(mouse.position.z < 0){
+        requestAnimationFrame(handleLoadOver)
+    }
+}
 function getClientPosition(e) {
     return {
         x: e.touches[0].clientX,
