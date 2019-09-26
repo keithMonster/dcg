@@ -18,7 +18,7 @@
 }
 .loading {
   width: 100%;
-  height: 3px;
+  height: 5px;
   background: #fdfd8f;
   position: fixed;
   top: 0;
