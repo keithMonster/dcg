@@ -111,8 +111,8 @@ function createPlane() {
     // })
     const loader = new GLTFLoader();
     loader.load(
-        'src/assets/three_obj/mouse.gltf',
-        // 'https://hjx-1255882558.cos.ap-guangzhou.myqcloud.com/jjh/mouse.gltf',
+        // 'src/assets/three_obj/mouse.gltf',
+        'https://hjx-1255882558.cos.ap-guangzhou.myqcloud.com/jjh/mouse.gltf',
         (gltf) => {
             // called when the resource is loaded
             mouse = gltf.scene
@@ -192,7 +192,7 @@ function itemTouchEnd(e, index) {
 }
 function handleLoadOver(){
     mouse.position.z += 10;
-    if(mouse.position.z < 0){
+    if(mouse.position.z < 30){
         requestAnimationFrame(handleLoadOver)
     }
 }
