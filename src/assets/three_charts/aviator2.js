@@ -111,12 +111,21 @@ function createPlane() {
     // })
     const loader = new GLTFLoader();
     loader.load(
-        // 'src/assets/three_obj/mouse.gltf',
-        'https://hjx-1255882558.cos.ap-guangzhou.myqcloud.com/jjh/mouse.gltf',
+        'src/assets/three_obj/mouse.gltf',
+        // 'https://hjx-1255882558.cos.ap-guangzhou.myqcloud.com/jjh/mouse.gltf',
         (gltf) => {
             // called when the resource is loaded
             mouse = gltf.scene
             log(mouse)
+            mouse.traverse(function(child) {
+                if (child instanceof THREE.Mesh) {
+                    child.material = new THREE.MeshLambertMaterial({
+                        color: 0xFFEB3B,
+                        side: THREE.DoubleSide
+                    });
+                }
+            });
+        
             mouse.position.z = -300
             handleLoadOver()
             scene.add(gltf.scene);
