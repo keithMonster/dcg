@@ -6,7 +6,7 @@
       flex-box="1"
       @click="handleTabbarChange(index)"
     >
-      <svg width="200px" height="100px" viewBox="0 0 200 100">
+      <svg width="200px" height="100px">
         <path
           :d="activeTabbar === index ? pathAttr.fin : pathAttr.begin"
           stroke="black"
@@ -18,14 +18,14 @@
             :from="pathAttr.begin"
             :to="pathAttr.to"
             begin="indefinite"
-            dur=".3s"
+            dur=".2s"
           />
           <animate
             attributeName="d"
             :from="pathAttr.to"
             :to="pathAttr.fin"
             :begin="`path_a${index}.end`"
-            dur=".2s"
+            dur=".3s"
           />
         </path>
       </svg>
@@ -61,36 +61,16 @@ export default{
             tabbar:['嘿','哈'],
             activeTabbar:0,
             pathAttr:{
-                begin:`
-                M0 80 L20 80
-                Q 40 80 50 80
-                Q 100 80 150 80
-                Q 160 80 180 80
-                L200 80`,
-                // begin:'M0 80 L20 80 Q 40 80 50 80 Q 100 80 150 80 Q 160 80 180 80 L200 80',
-                to:   `
-                M0 80 L20 80
-                Q 40 80 50 60
-                Q 100 -10 150 60
-                Q 160 80 180 80
-                L200 80`,
-                // to:   'M0 80 L20 80 Q 40 80 50 60 Q 100 -10 150 60 Q 160 80 180 80 L200 80',
-                fin:  `
-                M0 80 L20 80
-                Q 40 80 50 80
-                Q 100 20 150 80
-                Q 160 80 180 80
-                L200 80`
-                // fin:  'M0 80 L20 80 Q40 80 50 80 Q 100 20 150 80 Q 160 80 180 80 L200 80'
+                begin:'M0 80 L20 80 Q40 80 50 80 Q 100 80 150 80 Q 160 80 180 80 L200 80',
+                to:   'M0 80 L20 80 Q40 80 50 60 Q 100 -20 150 60 Q 160 80 180 80 L200 80',
+                fin:  'M0 80 L20 80 Q40 80 50 80 Q 100 10 150 80 Q 160 80 180 80 L200 80'
             }
         }
     },
     methods: {
         handleTabbarChange(index){
-            if(this.activeTabbar !== index){
-              this.activeTabbar = index
-              document.querySelector(`#path_a${index}`).beginElement();
-            }
+            this.activeTabbar = index
+            document.querySelector(`#path_a${index}`).beginElement();
         }
     },
 }

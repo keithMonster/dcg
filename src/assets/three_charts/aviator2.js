@@ -14,7 +14,8 @@ const Colors = {
     blue: 0x68c3c0
 }
 let scene, camera, fieldOfView, aspectRatio, nearPlane,
-    farPlane, HEIGHT, WIDTH, renderer,container;
+    farPlane, HEIGHT, WIDTH, renderer, container;
+
 function createScene() {
     // 获得屏幕的宽和高，
     // 用它们设置相机的纵横比
@@ -89,57 +90,97 @@ function createLights() {
 
 let mouse;
 let mouseRotate = {
-    x:0,
-    y:0,
-    z:0
+    x: 0,
+    y: 0,
+    z: 0
 }
 
 function createPlane() {
+    // const loader = new GLTFLoader();
+    // var geometry = new THREE.SphereGeometry(24, 32, 32 );
+    //     THREE.ImageUtils.crossOrigin = true;
 
-    // let mtlLoader = new MTLLoader();
-    // let objLoader = new OBJLoader();
-    // mtlLoader.load('https://www.wjceo.com/lib/assets/models/butterfly.mtl', (materials) => {
-    // mtlLoader.load('src/assets/three_obj/未标题_2.mtl', (materials) => {
-    //     materials.preload()
-    //     objLoader.setMaterials(materials)
-    //     // objLoader.load('https://www.wjceo.com/lib/assets/models/butterfly.obj', (object) => {
-    //     objLoader.load('src/assets/three_obj/未标题_2.obj', (object) => {
-    //         mouse = object
+    // var textureLoader = new THREE.TextureLoader();
+    // let imgm
+    // textureLoader.crossOrigin = true;
+    // // textureLoader.load('https://s3-us-west-2.amazonaws.com/s.cdpn.io/53148/chrispizza.png', function(texture) {
+    // textureLoader.load('src/assets/three_obj/baseimg.png', function (texture) {
+    //     // this code makes the texture repeat
+    //     texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+    //     texture.repeat.set(4, 4);
+    //     // set the texture as the map for the material
+    //     imgm = new THREE.MeshLambertMaterial({
+    //         map: texture
+    //     });
 
-    //         scene.add(mouse)
-    //     })
     // })
-    const loader = new GLTFLoader();
-    loader.load(
-        // 'src/assets/three_obj/mouse.gltf',
-        'https://hjx-1255882558.cos.ap-guangzhou.myqcloud.com/jjh/mouse.gltf',
-        (gltf) => {
-            // called when the resource is loaded
-            mouse = gltf.scene
-            log(mouse)
-            mouse.traverse(function(child) {
-                if (child instanceof THREE.Mesh) {
-                    child.material = new THREE.MeshLambertMaterial({
-                        color: 0xFFEB3B,
-                        side: THREE.DoubleSide
-                    });
-                }
-            });
-        
-            mouse.position.z = -300
-            handleLoadOver()
-            scene.add(gltf.scene);
-        },
-        (xhr) => {
-            // called while loading is progressing
-            bus.$emit('object_load',xhr.loaded / xhr.total)
-            // console.log(`${( xhr.loaded / xhr.total * 100 )}% loaded`);
-        },
-        (error) => {
-            // called when loading has errors
-            console.error('An error happened', error);
-        },
-    );
+
+    let mtlLoader = new MTLLoader();
+    let objLoader = new OBJLoader();
+    // mtlLoader.load('https://www.wjceo.com/lib/assets/models/butterfly.mtl', (materials) => {
+    mtlLoader.load('src/assets/three_obj/mouse.mtl', (materials) => {
+        materials.preload()
+        objLoader.setMaterials(materials)
+        // objLoader.load('https://www.wjceo.com/lib/assets/models/butterfly.obj', (object) => {
+        objLoader.load('src/assets/three_obj/mouse.obj', (object) => {
+                mouse = object
+                // mouse.traverse(function (child) {
+                // if (child instanceof THREE.Mesh) {
+                // log(child)
+                // child.material = new THREE.MeshLambertMaterial({
+                //     color: 0xFFEB3B,
+                //     side: THREE.DoubleSide
+                // });
+                // log(child)
+                // log(imgm)
+                // child.material = imgm
+                // }
+                // });
+                scene.add(mouse)
+            },
+            (xhr) => {
+                // called while loading is progressing
+                bus.$emit('object_load', xhr.loaded / xhr.total)
+                // console.log(`${( xhr.loaded / xhr.total * 100 )}% loaded`);
+            },
+        )
+    })
+
+
+    // loader.load(
+    //     'src/assets/three_obj/mouse.gltf',
+    //     // 'https://hjx-1255882558.cos.ap-guangzhou.myqcloud.com/jjh/mouse.gltf',
+    //     (gltf) => {
+    //         // called when the resource is loaded
+    //         mouse = gltf.scene
+    //         log(mouse)
+    //         mouse.traverse(function(child) {
+    //             if (child instanceof THREE.Mesh) {
+    //                 log(child)
+    //                 // child.material = new THREE.MeshLambertMaterial({
+    //                 //     color: 0xFFEB3B,
+    //                 //     side: THREE.DoubleSide
+    //                 // });
+    //                 // log(child)
+    //                 // log(imgm)
+    //                 // child.material = imgm
+    //             }
+    //         });
+
+    //         mouse.position.z = -300
+    //         handleLoadOver()
+    //         scene.add(gltf.scene);
+    //     },
+    //     (xhr) => {
+    //         // called while loading is progressing
+    //         bus.$emit('object_load',xhr.loaded / xhr.total)
+    //         // console.log(`${( xhr.loaded / xhr.total * 100 )}% loaded`);
+    //     },
+    //     (error) => {
+    //         // called when loading has errors
+    //         console.error('An error happened', error);
+    //     },
+    // );
 }
 
 function loop() {
@@ -160,14 +201,37 @@ function loop() {
     requestAnimationFrame(loop);
 }
 let position = {
-    move:{x:0,y:0}
+    move: {
+        x: 0,
+        y: 0
+    }
 }
+let isDoubleTouch = false
+let start
+
 function itemTouchStart(e) {
-    // position.start = getClientPosition(e);
-    position.move = getClientPosition(e);
+    // position.start = getClientPosition(e);    
+    if (e.touches.length >= 2) { //判断是否有两个点在屏幕上
+        isDoubleTouch = true;
+        start = e.touches; //得到第一组两个点
+        var screenMinPoint = getMidpoint(start[0], start[1]); //获取两个触点中心坐标
+        // gesturestart.midPoint = [screenMinPoint[0] - e.target.offsetLeft, screenMinPoint[1] - e.target.offsetTop]; //获取中心点坐标相对目标元素坐标
+    } else {
+        position.move = getClientPosition(e);
+    }
 }
 
 function itemTouchMove(e, index) {
+    if (e.touches.length >= 2 && isDoubleTouch) { //手势事件
+        let gesturechange = {}
+        var now = e.touches; //得到第二组两个点
+        var scale = getDistance(now[0], now[1]) / getDistance(start[0], start[1]); //得到缩放比例
+        var rotation = getAngle(now[0], now[1]) - getAngle(start[0], start[1]); //得到旋转角度差
+        gesturechange.scale = scale.toFixed(2);
+        gesturechange.rotation = rotation.toFixed(2);
+        log(gesturechange)
+        // e.target.dispatchEvent(gesturechange);
+    }
     const currentItem = e.target;
     const {
         x,
@@ -177,9 +241,9 @@ function itemTouchMove(e, index) {
     let my = y - position.move.y
     // HEIGHT, WIDTH
     mouseRotate = {
-        x:mouseRotate.x + my/HEIGHT*2,
-        y:mouseRotate.y + mx/WIDTH*2,
-        z:0
+        x: mouseRotate.x + my / HEIGHT * 2,
+        y: mouseRotate.y + mx / WIDTH * 2,
+        z: 0
     }
     position.move = {
         x,
@@ -188,14 +252,40 @@ function itemTouchMove(e, index) {
 }
 
 function itemTouchEnd(e, index) {
-    
+    isDoubleTouch = false
 }
-function handleLoadOver(){
+/*
+ * 两点的距离
+ */
+function getDistance(p1, p2) {
+    var x = p2.pageX - p1.pageX,
+        y = p2.pageY - p1.pageY;
+    return Math.sqrt((x * x) + (y * y));
+};
+/*
+ * 两点的夹角
+ */
+function getAngle(p1, p2) {
+    var x = p1.pageX - p2.pageX,
+        y = p1.pageY - p2.pageY;
+    return Math.atan2(y, x) * 180 / Math.PI;
+};
+/*
+ * 获取中点 
+ */
+function getMidpoint(p1, p2) {
+    var x = (p1.pageX + p2.pageX) / 2,
+        y = (p1.pageY + p2.pageY) / 2;
+    return [x, y];
+}
+
+function handleLoadOver() {
     mouse.position.z += 10;
-    if(mouse.position.z < 30){
+    if (mouse.position.z < 100) {
         requestAnimationFrame(handleLoadOver)
     }
 }
+
 function getClientPosition(e) {
     return {
         x: e.touches[0].clientX,
