@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="204px" height="170px" viewBox="0 0 204 170" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>triangle-img-right</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="100%" y1="50%" x2="0%" y2="50%" id="linearGradient-1">
+            <stop stop-color="#FE9A8B" offset="0%"></stop>
+            <stop stop-color="#FD868C" offset="40.8502073%"></stop>
+            <stop stop-color="#F9748F" offset="73.1505102%"></stop>
+            <stop stop-color="#F78CA0" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="100%" y1="50%" x2="0%" y2="50%" id="linearGradient-2">
+            <stop stop-color="#FE9A8B" offset="0%"></stop>
+            <stop stop-color="#FD868C" offset="40.8502073%"></stop>
+            <stop stop-color="#F9748F" offset="73.1505102%"></stop>
+            <stop stop-color="#F78CA0" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="triangle-img-right" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.125849185">
+        <g id="编组-4">
+            <path d="M38.3080398,186.753028 C28.2853246,185.368388 25.1953329,177.565765 31.4553549,169.449123 L59.0802498,133.561468 C65.3126614,125.456205 75.5989975,112.151911 81.8259018,104.059774 L109.437897,68.166579 C115.705311,60.068604 123.908033,61.1827701 127.685511,70.7213842 L174.756138,189.580728 C178.544704,199.147342 173.413493,205.789133 163.375994,204.367161 L119.079522,198.129922 C109.089924,196.720778 92.6309969,194.438491 82.6174113,192.995807 L38.3080398,186.753028 Z" id="Fill-5-Copy-3" fill="url(#linearGradient-1)" style="mix-blend-mode: color-burn;" transform="translate(102.109650, 133.658860) rotate(-128.000000) translate(-102.109650, -133.658860) "></path>
+            <path d="M102.234684,89.2258625 C96.4711511,88.4296297 94.6942605,83.9427541 98.2940676,79.2753034 L114.179682,58.6382135 C117.763612,53.977306 123.678739,46.3267111 127.259502,41.6733518 L143.137698,21.0330759 C146.741756,16.3763594 151.458707,17.0170573 153.630934,22.5022091 L180.698759,90.8519233 C182.877363,96.3531763 179.926675,100.172519 174.154641,99.3548175 L148.682086,95.7681119 C142.937597,94.9577877 133.47294,93.6453655 127.714657,92.8157542 L102.234684,89.2258625 Z" id="Fill-5-Copy-3" fill="url(#linearGradient-2)" style="mix-blend-mode: color-burn;" transform="translate(138.923611, 58.694218) rotate(-128.000000) translate(-138.923611, -58.694218) "></path>
+        </g>
+    </g>
+</svg>
