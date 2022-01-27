@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "postcss-loader": "^2.0.10",
-    "three": "^0.94.0",
+    "three": "^0.137.0",
     "vue": "^2.5.13",
     "webpack": "^3.10.0"
   },
